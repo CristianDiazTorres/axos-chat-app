@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <style>
+        body{
+            background-image: url("https://image.freepik.com/free-vector/conversation-concept-illustration_114360-1102.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position-y: top;
+        }
+        @media only screen and (min-width:600px) {
+            body{
+                background-position-x: right;
+                background-position: top;
+                background-size: 700px;
+            }
+            .login{
+                margin-left: 70px;
+            }
+        }
+        .login{
+            position: fixed;
+            top: 45vh;
+        }
+        input{
+            border-radius: 30px;
+            background-image: linear-gradient(20deg, rgb(25, 172, 230), rgb(21, 163, 168));
+            border:0px;
+            padding: 17px;
+        }
+        label{
+            color: rgba(37, 128, 156, 0.705);
+            margin: 10px;
+            font-size: 14px;
+        }
+        ::placeholder{
+            color:rgba(255, 255, 255, 0.568)
+        }
+        button{
+            width: 100px;
+            margin: 5px;
+            background-image: linear-gradient(20deg, rgb(99, 188, 223), rgb(21, 163, 168));
+            padding: 15px;
+            border-radius: 30px;
+            border: 0px;
+            color: rgba(255, 255, 255, 0.856);
+        }
+        input:focus{
+            outline:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+        <label for="username" id="userLabel">Username</label><br>
+        <input type="text" id="username" placeholder="Your Good name please"><br>
+        <button onclick="send()">Login</button>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        async function send(){
+            username=document.getElementById("username").value
+            if(!username){
+                document.getElementById("userLabel").innerHTML=" Try valid username"
+            }else{
+            await axios.post("/login",
+            {
+                username:username
+            })
+            .then(function(res){
+                if(res.status===200){
+                    window.location.href="/chat";
+                }else{
+                    document.getElementById("userLabel").innerHTML=" Try another username"
+                }
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+        }}
+    </script>
+</body>
+</html>
